@@ -4,18 +4,53 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Omid Saghatchian is a software engineer whose research spans language models for code, safety evaluation, and efficient generative models.">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#050506">
   <title>Omid Saghatchian</title>
   <style>
-    :root { color-scheme: light; }
+    :root {
+      color-scheme: dark;
+      background: #050506;
+    }
 
     body {
       max-width: 76ch;
       margin: clamp(1.5rem, 4vw, 3rem) auto 3rem;
       padding-inline: 1.25rem;
-      background: #fff;
-      color: #111;
+      color: #f4f3f2;
       font: 1rem/1.45 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .backdrop canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    header, main, footer {
+      position: relative;
+      isolation: isolate;
+    }
+
+    header { margin-bottom: 1.4rem; }
+    .has-particles header { margin-bottom: clamp(8rem, 23vw, 13rem); }
+
+    header::before, main::before, footer::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -1rem -1.25rem;
+      background: linear-gradient(90deg,
+        transparent, #050506b8 1.25rem,
+        #050506b8 calc(100% - 1.25rem), transparent);
+      mask-image: linear-gradient(180deg,
+        transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+      pointer-events: none;
     }
 
     h1 {
@@ -28,17 +63,26 @@
       display: flex;
       flex-wrap: wrap;
       gap: .25rem 1rem;
-      margin-bottom: 1.4rem;
+      align-items: baseline;
     }
+
+    a { color: #ffcdcf; text-underline-offset: .17em; }
+    a:visited { color: #ded1f6; }
+    a:focus-visible { outline: 2px solid #ffcdcf; outline-offset: 3px; }
 
     section { margin-top: 1.5rem; }
     h2 { margin: 0 0 .4rem; font-size: 1.05rem; }
     p, ul { margin: 0 0 1rem; }
     ul { padding-inline-start: 1.5rem; }
     .papers li + li { margin-top: .75rem; }
+    footer { margin-top: 2rem; color: #c9c6c8; }
   </style>
 </head>
 <body>
+  <div class="backdrop" aria-hidden="true">
+    <canvas id="particle-field"></canvas>
+  </div>
+
   <header>
     <h1>Omid Saghatchian</h1>
     <nav aria-label="Profiles">
@@ -51,9 +95,9 @@
   <main>
     <p>I’m Omid Saghatchian. I enjoy solving complex problems. I approach them by examining the underlying assumptions, breaking them into simpler parts, and building solutions through careful reasoning.</p>
 
-    <p>I completed my master’s studies in computer science at Shahid Beheshti University, where I ranked first in my cohort. For my thesis, I looked for a better way to test how well language models reason about code. My supervisor was <a href="https://scholar.google.com/citations?user=ZisNRVMAAAAJ&amp;hl=en">Saeed Reza Kheradpisheh</a>. I worked with <a href="https://khesoem.github.io/">Khashayar Etemadi</a>, a postdoctoral researcher at ETH Zurich, to develop SCRBench, a benchmark that breaks code reasoning into distinct skills and evaluates them separately. Our manuscript is under review at NAACL.</p>
+    <p>I completed my master’s studies in computer science at Shahid Beheshti University, where I ranked first in my cohort. For my thesis, I looked for a better way to test how well language models reason about code. My supervisor was <a href="https://scholar.google.com/citations?user=ZisNRVMAAAAJ&amp;hl=en">Saeed Reza Kheradpisheh</a>. I worked with <a href="https://khesoem.github.io/">Khashayar Etemadi</a>, a postdoctoral researcher at ETH Zurich, on <cite><a href="https://arxiv.org/abs/2610.41562">SCRBench</a></cite>, a paper in which we introduce a benchmark and use it to evaluate how language models reason about code changes. Our manuscript is under review at NAACL.</p>
 
-    <p>I earned my bachelor’s degree in mathematics from Amirkabir University of Technology. Toward the end of my studies, I began exploring how to speed up diffusion models while preserving output quality. I looked for computations the model could reuse across steps. That idea led to <cite>Cached Adaptive Token Merging</cite>, a method I developed with my coauthors to reduce repeated computation during inference.</p>
+    <p>I earned my bachelor’s degree in mathematics from Amirkabir University of Technology. Toward the end of my studies, I began exploring how to speed up diffusion models while preserving output quality. I looked for computations the model could reuse across steps. That idea led to <cite><a href="https://arxiv.org/abs/2501.00946">Cached Adaptive Token Merging</a></cite>, a method I developed with my coauthors to reduce repeated computation during inference.</p>
 
     <section aria-labelledby="research">
       <h2 id="research">Research collaboration</h2>
@@ -61,10 +105,10 @@
     </section>
 
     <section aria-labelledby="publications">
-      <h2 id="publications">Selected papers</h2>
+      <h2 id="publications">Papers</h2>
       <ul class="papers">
         <li>
-          <a href="https://arxiv.org/pdf/2610.41562">SCRBench: Beyond Equivalence Checking for Semantic Change Reasoning in Code</a><br>
+          <a href="https://arxiv.org/abs/2610.41562">SCRBench: Beyond Equivalence Checking for Semantic Change Reasoning in Code</a><br>
           Omid Saghatchian, Ali Mahzoun, Khashayar Etemadi, and Saeed Reza Kheradpisheh. arXiv preprint, 2026.<br>
           Code will be available after the paper is accepted.
         </li>
@@ -89,5 +133,111 @@
       </ul>
     </section>
   </main>
+
+  <footer>
+    <small>Particle background inspired by the animation in <a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">OpenAI’s <cite>The Hugging Face incident and the road ahead</cite></a>.</small>
+  </footer>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById("particle-field");
+      const context = canvas.getContext("2d");
+      if (!context) return;
+
+      const header = document.querySelector("header");
+      const main = document.querySelector("main");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const turn = Math.PI * 2;
+      let frameId = 0;
+      let lastDraw = null;
+      let elapsed = 0;
+      let width, height, middle, ribbonHeight, density;
+
+      const layers = [
+        { count: 2900, color: "#dfe4ec49", radius: 1.17, spread: 1.55 },
+        { count: 2650, color: "#e7ebf17d", radius: 1.04, spread: .72 },
+        { count: 1250, color: "#f6f7fbbe", radius: .87, spread: 1.25 },
+        { count: 380, color: "#fffaf4e6", radius: 1.03, spread: 1.1 }
+      ];
+
+      for (const layer of layers) {
+        layer.particles = Array.from({ length: layer.count }, () => ({
+          position: Math.random(),
+          speed: .009 + Math.random() * .012,
+          angle: Math.random() * turn,
+          shell: .36 + Math.sqrt(Math.random()) * .64,
+          drift: Math.random() - .5,
+          scatter: Math.random() + Math.random() - 1,
+          size: .32 + Math.random() * 1.03
+        }));
+      }
+
+      function paint() {
+        context.clearRect(0, 0, width, height);
+        const sway = Math.sin(elapsed * .44);
+
+        for (const layer of layers) {
+          context.beginPath();
+          const visibleCount = Math.round(layer.particles.length * density);
+          for (let i = 0; i < visibleCount; i += 1) {
+            const particle = layer.particles[i];
+            const u = (particle.position + elapsed * particle.speed) % 1;
+            const phase = turn * (u * 1.24 - .11) + .24 * sway;
+            const roll = particle.angle + u * 5 - elapsed * .39;
+            const spread = ribbonHeight * (.09 + .055 * Math.sin(Math.PI * u));
+            const x = width * (.026 + .948 * u + particle.drift * .038)
+              + Math.cos(roll) * spread * .18 * particle.shell;
+            const y = middle - ribbonHeight * (.29 * Math.sin(phase) + .035 * Math.sin(2 * phase))
+              + spread * (Math.sin(roll) * particle.shell + particle.scatter * layer.spread);
+            const taper = Math.min(1, u * 18, (1 - u) * 16);
+            const radius = Math.max(.01, layer.radius * particle.size * taper);
+
+            context.moveTo(x + radius, y);
+            context.arc(x, y, radius, 0, turn);
+          }
+          context.fillStyle = layer.color;
+          context.fill();
+        }
+      }
+
+      function resize() {
+        width = canvas.clientWidth;
+        height = canvas.clientHeight;
+        const scale = Math.min(window.devicePixelRatio || 1, 1.6);
+        canvas.width = Math.round(width * scale);
+        canvas.height = Math.round(height * scale);
+        context.setTransform(scale, 0, 0, scale, 0, 0);
+        const headerBottom = header.getBoundingClientRect().bottom;
+        const gap = main.getBoundingClientRect().top - headerBottom;
+        middle = Math.min(height * .68, headerBottom + window.scrollY + gap * 1.5);
+        ribbonHeight = Math.min(height * .74, width * .56, gap * 2.35);
+        density = Math.min(1, Math.max(.38, width / 1080));
+        paint();
+      }
+
+      function animate(now) {
+        // About 30 fps is enough for the slow motion.
+        if (lastDraw === null || now - lastDraw >= 32) {
+          if (lastDraw !== null) elapsed += Math.min((now - lastDraw) / 1000, .1);
+          lastDraw = now;
+          paint();
+        }
+        frameId = requestAnimationFrame(animate);
+      }
+
+      function updateMotion() {
+        cancelAnimationFrame(frameId);
+        lastDraw = null;
+        if (!reducedMotion.matches && !document.hidden) frameId = requestAnimationFrame(animate);
+      }
+
+      reducedMotion.addEventListener("change", updateMotion);
+      document.addEventListener("visibilitychange", updateMotion);
+      window.addEventListener("resize", resize);
+      document.body.classList.add("has-particles");
+      resize();
+      updateMotion();
+    })();
+  </script>
 </body>
 </html>
