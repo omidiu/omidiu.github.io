@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Omid Saghatchian’s academic homepage. Research on language models for code, safety evaluation, and efficient machine learning.">
+  <meta name="theme-color" content="#f8f8f4">
+  <title>Omid Saghatchian</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f8f8f4;
+      --ink: #192831;
+      --muted: #4e5c64;
+      --accent: #185171;
+      --rule: #d2d9d9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 1rem/1.65 system-ui, sans-serif;
+    }
+
+    .page {
+      max-width: 62rem;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 5vw, 3.75rem);
+    }
+
+    header {
+      padding-block: clamp(2.75rem, 8vw, 5.5rem) 2.25rem;
+      border-top: 4px solid var(--accent);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: Georgia, serif;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2.45rem, 7vw, 4.65rem);
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    h2 { font-size: 1.45rem; font-weight: 400; }
+    h3 { font-size: 1.2rem; }
+    p { margin: 0; }
+
+    .intro {
+      max-width: 61ch;
+      margin-top: 1.1rem;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-underline-offset: .2em;
+      text-decoration-thickness: .07em;
+    }
+
+    a:hover { text-decoration-thickness: .13em; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    nav, .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .25rem 1.25rem;
+      margin-top: 1rem;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    section {
+      display: grid;
+      grid-template-columns: 11rem minmax(0, 1fr);
+      gap: 1rem 1.5rem;
+      padding-block: 1.8rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    article + article { margin-top: 1.55rem; }
+    article p { margin-top: .38rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    article .links { margin-top: .5rem; }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding-block: 1.15rem 2.5rem;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (max-width: 42rem) {
+      section { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Omid Saghatchian</h1>
+      <p class="intro">I study how language models reason about code and how to evaluate their behavior. My master’s thesis examined whether models can detect changes in program behavior, identify the edits responsible, and reconstruct sequences of code transformations.</p>
+      <nav aria-label="Profiles">
+        <a href="https://github.com/omidiu">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=f7rHfTIAAAAJ&amp;hl=en">Google Scholar</a>
+        <a href="https://www.linkedin.com/in/omidiu/">LinkedIn</a>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="research">
+        <h2 id="research">Research</h2>
+        <div>
+          <article>
+            <h3>Language model safety evaluation</h3>
+            <p>In a research collaboration at the Vector Institute, I explored how to assess what an attacker can learn from a safeguarded language model. I also categorized the cybersecurity questions in WMDP by topic.</p>
+          </article>
+          <article>
+            <h3>Efficient machine learning</h3>
+            <p>At Amirkabir University of Technology, I worked on speeding up diffusion model inference by merging similar tokens and reusing similarity computations across denoising steps.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="publications">
+        <h2 id="publications">Selected papers</h2>
+        <div>
+          <article>
+            <h3>Cached Adaptive Token Merging</h3>
+            <p class="meta">Omid Saghatchian, Atiyeh Gh. Moghadam, and Ahmad Nickabadi · arXiv preprint, 2025</p>
+            <p>A training-free method for accelerating diffusion model inference.</p>
+            <div class="links">
+              <a href="https://arxiv.org/abs/2501.00946" aria-label="CA-ToMe preprint on arXiv">arXiv</a>
+              <a href="https://github.com/omidiu/ca_tome" aria-label="CA-ToMe source code on GitHub">Code</a>
+            </div>
+          </article>
+          <article>
+            <h3>Molecular dynamics of diazinon adsorption</h3>
+            <p class="meta">Maryam Farajpour Mojdehi et al. · <i>Results in Engineering</i>, 2024</p>
+            <p>I contributed data visualization and interpolation to this study of diazinon adsorption onto cyclodextrins.</p>
+            <div class="links">
+              <a href="https://www.sciencedirect.com/science/article/pii/S2590123024002731" aria-label="Diazinon adsorption journal article">Journal article</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="education">
+        <h2 id="education">Education</h2>
+        <div>
+          <article>
+            <h3>Shahid Beheshti University</h3>
+            <p class="meta">Master’s studies in data mining · 2023–2026</p>
+          </article>
+          <article>
+            <h3>Amirkabir University of Technology</h3>
+            <p class="meta">Bachelor’s studies in mathematics and applications · 2018–2023</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>Omid Saghatchian</footer>
+  </div>
+</body>
+</html>
