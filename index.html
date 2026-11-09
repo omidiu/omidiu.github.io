@@ -6,97 +6,55 @@
   <meta name="description" content="Omid Saghatchian is a software engineer whose research spans language models for code, safety evaluation, and efficient generative models.">
   <meta name="theme-color" content="#050506">
   <title>Omid Saghatchian</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/particles.js" defer></script>
   <style>
-    :root {
-      --text-width: 76ch;
-      --page-padding: 1.25rem;
-      color-scheme: dark;
-      background: #050506;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      :root {
-        --scrollbar-thumb: #92717b;
-        --scrollbar-track: #0d0b0e;
-        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-        scrollbar-width: thin;
-      }
-
-      :root::-webkit-scrollbar { width: 10px; }
-      :root::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-      :root::-webkit-scrollbar-thumb {
-        background: var(--scrollbar-thumb);
-        border: 2px solid var(--scrollbar-track);
-        border-radius: 1rem;
-      }
-    }
-
-    body {
-      max-width: var(--text-width);
-      margin: clamp(1.5rem, 4vw, 3rem) auto 3rem;
-      padding-inline: var(--page-padding);
-      color: #f4f3f2;
-      font: 1rem/1.45 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-    }
-
-    .backdrop {
-      position: fixed;
-      inset: 0 0 auto;
-      height: 100vh;
-      height: 100lvh;
-      pointer-events: none;
-    }
-
-    .backdrop canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .backdrop::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      width: min(100%, calc(var(--text-width) + 2 * var(--page-padding)));
-      margin-inline: auto;
-      background: linear-gradient(90deg,
-        transparent, #050506b8 var(--page-padding),
-        #050506b8 calc(100% - var(--page-padding)), transparent);
-    }
-
-    header, main, footer { position: relative; }
-
     header { margin-bottom: .75rem; }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
 
     .portrait {
       display: block;
       width: clamp(8rem, 22vw, 12rem);
       max-width: 100%;
+      min-width: 0;
       height: auto;
-      margin-bottom: 1rem;
       border-radius: .25rem;
     }
 
-    h1 {
-      margin: 0 0 .6em;
-      font-size: clamp(1.65rem, 4.5vw, 2.25rem);
-      line-height: 1.2;
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .25rem 1rem;
-      align-items: baseline;
+    .profile-links {
+      display: grid;
+      flex-shrink: 0;
     }
 
-    a { color: #ffcdcf; text-underline-offset: .17em; }
-    a:visited { color: #ded1f6; }
-    a:focus-visible { outline: 2px solid #ffcdcf; outline-offset: 3px; }
+    .profile-links a {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: .25rem;
+    }
+
+    .profile-links a:hover { background: #ffcdcf1a; }
+    .profile-links svg { width: 1.25rem; height: 1.25rem; }
 
     section { margin-top: 1.5rem; }
     h2 { margin: 0 0 .4rem; font-size: 1.05rem; }
     p, ul { margin: 0 0 1rem; }
+    .dates { color: #c9c6c8; margin-bottom: .55rem; }
     ul { padding-inline-start: 1.5rem; }
     .papers li + li { margin-top: .75rem; }
     footer { margin-top: 2rem; color: #c9c6c8; }
@@ -108,16 +66,36 @@
   </div>
 
   <header>
-    <h1>Omid Saghatchian</h1>
-    <img class="portrait" src="portrait-dithered.png" width="1254" height="1254" alt="Portrait of Omid Saghatchian" decoding="async">
-    <nav aria-label="Profiles">
-      <a href="https://github.com/omidiu">GitHub</a>
-      <a href="https://scholar.google.com/citations?user=f7rHfTIAAAAJ&amp;hl=en">Google Scholar</a>
-      <a href="https://www.linkedin.com/in/omidiu/">LinkedIn</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">About me</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="industry.html">Industry</a>
+      <a href="projects.html">Selected project</a>
     </nav>
+    <div class="profile">
+      <img class="portrait" src="portrait-dithered.png" width="1254" height="1254" alt="Portrait of Omid Saghatchian" decoding="async">
+      <nav class="profile-links" aria-label="Profiles">
+        <a href="https://github.com/omidiu" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.81 1.3 3.49.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.87.12 3.17.76.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22 0 1.6-.01 2.89-.01 3.28 0 .32.22.69.83.57C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0Z"/>
+          </svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=f7rHfTIAAAAJ&amp;hl=en" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m2 9 10-5 10 5-10 5-10-5Zm4 2v5c3.5 3 8.5 3 12 0v-5m4-2v6"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/omidiu/" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm1.5 7.5h3v9h-3v-9ZM7 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm3.5 4.5h3v1.2a3 3 0 0 1 2.6-1.4c2 0 3.4 1.3 3.4 3.9v5.3h-3v-5c0-1.2-.5-1.8-1.4-1.8-1 0-1.6.7-1.6 1.8v5h-3v-9Z"/>
+          </svg>
+        </a>
+      </nav>
+    </div>
   </header>
 
   <main>
+    <h1 class="visually-hidden">About me</h1>
     <p>I’m Omid Saghatchian. I enjoy solving complex problems. I approach them by examining the underlying assumptions, breaking them into simpler parts, and building solutions through careful reasoning.</p>
 
     <p>I completed my master’s studies in computer science at Shahid Beheshti University, where I ranked first in my cohort. For my thesis, I looked for a better way to test how well language models reason about code. My supervisor was <a href="https://scholar.google.com/citations?user=ZisNRVMAAAAJ&amp;hl=en">Saeed Reza Kheradpisheh</a>. I worked with <a href="https://khesoem.github.io/">Khashayar Etemadi</a>, a postdoctoral researcher at ETH Zurich, on <cite><a href="https://arxiv.org/abs/2610.41562">SCRBench</a></cite>, a paper in which we introduce a benchmark and use it to evaluate how language models reason about code changes. Our manuscript is under review at NAACL.</p>
@@ -125,7 +103,8 @@
     <p>I earned my bachelor’s degree in mathematics from Amirkabir University of Technology. Toward the end of my studies, I began exploring how to speed up diffusion models while preserving output quality. I looked for computations the model could reuse across steps. That idea led to <cite><a href="https://arxiv.org/abs/2501.00946">Cached Adaptive Token Merging</a></cite>, a method I developed with my coauthors to reduce repeated computation during inference.</p>
 
     <section aria-labelledby="research">
-      <h2 id="research">Research collaboration</h2>
+      <h2 id="research">Summer research collaboration</h2>
+      <p class="dates"><time datetime="2026-06">June 2026</time> to <time datetime="2026-09">September 2026</time></p>
       <p>Under the supervision of <a href="https://malikeh97.github.io/">Malikeh Ehghaghi</a> at the Vector Institute, I explored how to assess what an attacker can learn from a safeguarded language model. I also categorized the cybersecurity questions in WMDP by topic.</p>
     </section>
 
@@ -153,8 +132,16 @@
     <section aria-labelledby="education">
       <h2 id="education">Education</h2>
       <ul>
-        <li>Shahid Beheshti University, 2023–2026</li>
-        <li>Amirkabir University of Technology, 2018–2023</li>
+        <li>
+          Master’s degree in Computer Science<br>
+          Shahid Beheshti University<br>
+          Tehran, Iran · 2023–2026
+        </li>
+        <li>
+          Bachelor’s degree in Mathematics<br>
+          Amirkabir University of Technology<br>
+          Tehran, Iran · 2018–2023
+        </li>
       </ul>
     </section>
   </main>
@@ -163,110 +150,5 @@
     <small>Particle background inspired by the animation in <a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">OpenAI’s <cite>The Hugging Face incident and the road ahead</cite></a>.</small>
   </footer>
 
-  <script>
-    (() => {
-      const canvas = document.getElementById("particle-field");
-      const context = canvas.getContext("2d");
-      if (!context) return;
-
-      const header = document.querySelector("header");
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const turn = Math.PI * 2;
-      let frameId = 0;
-      let lastDraw = null;
-      let elapsed = 0;
-      let width, height, pixelScale, middle, ribbonHeight, density;
-
-      const layers = [
-        { count: 2900, color: "#dfe4ec49", radius: 1.17, spread: 1.55 },
-        { count: 2650, color: "#e7ebf17d", radius: 1.04, spread: .72 },
-        { count: 1250, color: "#f6f7fbbe", radius: .87, spread: 1.25 },
-        { count: 380, color: "#fffaf4e6", radius: 1.03, spread: 1.1 }
-      ];
-
-      for (const layer of layers) {
-        layer.particles = Array.from({ length: layer.count }, () => ({
-          position: Math.random(),
-          speed: .009 + Math.random() * .012,
-          angle: Math.random() * turn,
-          shell: .36 + Math.sqrt(Math.random()) * .64,
-          drift: Math.random() - .5,
-          scatter: Math.random() + Math.random() - 1,
-          size: .32 + Math.random() * 1.03
-        }));
-      }
-
-      function paint() {
-        context.clearRect(0, 0, width, height);
-        const sway = Math.sin(elapsed * .44);
-
-        for (const layer of layers) {
-          context.beginPath();
-          const visibleCount = Math.round(layer.particles.length * density);
-          for (let i = 0; i < visibleCount; i += 1) {
-            const particle = layer.particles[i];
-            const u = (particle.position + elapsed * particle.speed) % 1;
-            const phase = turn * (u * 1.24 - .11) + .24 * sway;
-            const roll = particle.angle + u * 5 - elapsed * .39;
-            const spread = ribbonHeight * (.09 + .055 * Math.sin(Math.PI * u));
-            const x = width * (.026 + .948 * u + particle.drift * .038)
-              + Math.cos(roll) * spread * .18 * particle.shell;
-            const y = middle - ribbonHeight * (.29 * Math.sin(phase) + .035 * Math.sin(2 * phase))
-              + spread * (Math.sin(roll) * particle.shell + particle.scatter * layer.spread);
-            const taper = Math.min(1, u * 18, (1 - u) * 16);
-            const radius = Math.max(.01, layer.radius * particle.size * taper);
-
-            context.moveTo(x + radius, y);
-            context.arc(x, y, radius, 0, turn);
-          }
-          context.fillStyle = layer.color;
-          context.fill();
-        }
-      }
-
-      function resize() {
-        const nextWidth = canvas.clientWidth;
-        const nextHeight = canvas.clientHeight;
-        const nextScale = Math.min(window.devicePixelRatio || 1, 1.6);
-        if (nextWidth === width && nextHeight === height && nextScale === pixelScale) return;
-
-        width = nextWidth;
-        height = nextHeight;
-        pixelScale = nextScale;
-        canvas.width = Math.round(width * pixelScale);
-        canvas.height = Math.round(height * pixelScale);
-        context.setTransform(pixelScale, 0, 0, pixelScale, 0, 0);
-        const headerBottom = header.offsetTop + header.offsetHeight;
-        const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
-        const ribbonSpan = Math.min(13 * rootFontSize, Math.max(8 * rootFontSize, window.innerWidth * .23));
-        middle = Math.min(height * .68, headerBottom + ribbonSpan * 1.5);
-        ribbonHeight = Math.min(height * .74, width * .56, ribbonSpan * 2.35);
-        density = Math.min(1, Math.max(.38, width / 1080));
-        paint();
-      }
-
-      function animate(now) {
-        // About 30 fps is enough for the slow motion.
-        if (lastDraw === null || now - lastDraw >= 32) {
-          if (lastDraw !== null) elapsed += Math.min((now - lastDraw) / 1000, .1);
-          lastDraw = now;
-          paint();
-        }
-        frameId = requestAnimationFrame(animate);
-      }
-
-      function updateMotion() {
-        cancelAnimationFrame(frameId);
-        lastDraw = null;
-        if (!reducedMotion.matches && !document.hidden) frameId = requestAnimationFrame(animate);
-      }
-
-      reducedMotion.addEventListener("change", updateMotion);
-      document.addEventListener("visibilitychange", updateMotion);
-      window.addEventListener("resize", resize);
-      resize();
-      updateMotion();
-    })();
-  </script>
 </body>
 </html>

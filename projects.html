@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Selected projects by Omid Saghatchian: Mini-Torch and Cached Adaptive Token Merging.">
+  <meta name="theme-color" content="#050506">
+  <title>Selected projects | Omid Saghatchian</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/particles.js" defer></script>
+  <style>
+    h1 { margin: .6em 0; font-size: clamp(1.65rem, 4.5vw, 2.25rem); line-height: 1.2; }
+    h2 { margin: 0 0 .4rem; font-size: 1.05rem; }
+    p { margin: 0 0 1rem; }
+    section + section { margin-top: 2.5rem; }
+
+    .project-figures {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    figure { margin: 0; }
+    figure img { display: block; width: 100%; height: auto; border-radius: .25rem; }
+    figcaption { margin-top: .4rem; color: #c9c6c8; font-size: .875rem; }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <canvas id="particle-field"></canvas>
+  </div>
+
+  <header>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">About me</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="industry.html">Industry</a>
+      <a href="projects.html" aria-current="page">Selected project</a>
+    </nav>
+    <h1>Selected projects</h1>
+  </header>
+
+  <main>
+    <section aria-labelledby="mini-torch">
+      <h2 id="mini-torch">Mini-Torch</h2>
+      <p>I created Mini-Torch, a small deep learning library in Python and NumPy. I extended Andrej Karpathy’s micrograd to compute gradients through multidimensional tensor operations such as matrix multiplication. I also built a PyTorch-style module system that automatically collects trainable parameters from nested layers.</p>
+      <p>I included examples of training a small neural network and comparing Mini-Torch’s gradients with PyTorch’s for a batched linear operation.</p>
+      <p><a href="https://github.com/omidiu/Mini-Torch">View Mini-Torch on GitHub</a></p>
+
+      <div class="project-figures">
+        <figure>
+          <img src="assets/mini-torch-pytorch.png" alt="The PyTorch logo beside a smaller MiniTorch logo" width="1490" height="579" decoding="async">
+          <figcaption>PyTorch and Mini-Torch, from the project README.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/mini-torch-micrograd.png" alt="A white dog beside the MiniTorch logo" width="1490" height="579" decoding="async">
+          <figcaption>The README’s micrograd and Mini-Torch comparison.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="ca-tome">
+      <h2 id="ca-tome">Cached Adaptive Token Merging (CA-ToMe)</h2>
+      <p>I implemented CA-ToMe in Stable Diffusion’s transformer blocks. I developed the method with my coauthors to speed up image generation without retraining the model. It merges similar image tokens and reuses the matches across denoising steps to avoid repeated computation.</p>
+      <p><a href="https://github.com/omidiu/ca_tome">View CA-ToMe on GitHub</a> · <a href="https://arxiv.org/abs/2501.00946">Read the paper on arXiv</a></p>
+
+      <div class="project-figures">
+        <figure>
+          <img src="assets/ca-tome-diagram.png" alt="CA-ToMe diagram showing checkpoint steps that compute token matches and intermediate steps that reuse them." width="2099" height="1647" loading="lazy" decoding="async">
+          <figcaption>How CA-ToMe reuses token matches across denoising steps. <a href="assets/ca-tome-diagram.png">View full-size diagram</a>.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/ca-tome-comparison.webp" alt="Three rows compare generated images of a cat, two penguins, and a panda." width="930" height="895" loading="lazy" decoding="async">
+          <figcaption>Examples from Stable Diffusion 1.5, standard token merging (ToMe), and CA-ToMe, from top to bottom.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

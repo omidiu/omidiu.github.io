@@ -1,0 +1,73 @@
+:root {
+  --text-width: 76ch;
+  --page-padding: 1.25rem;
+  color-scheme: dark;
+  background: #050506;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --scrollbar-thumb: #92717b;
+    --scrollbar-track: #0d0b0e;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    scrollbar-width: thin;
+  }
+
+  :root::-webkit-scrollbar { width: 10px; }
+  :root::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  :root::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border: 2px solid var(--scrollbar-track);
+    border-radius: 1rem;
+  }
+}
+
+body {
+  max-width: var(--text-width);
+  margin: clamp(1.5rem, 4vw, 3rem) auto 3rem;
+  padding-inline: var(--page-padding);
+  color: #f4f3f2;
+  font: 1rem/1.45 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+}
+
+.backdrop canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: min(100%, calc(var(--text-width) + 2 * var(--page-padding)));
+  margin-inline: auto;
+  background: linear-gradient(90deg,
+    transparent, #050506b8 var(--page-padding),
+    #050506b8 calc(100% - var(--page-padding)), transparent);
+}
+
+header, main, footer { position: relative; }
+
+a { color: #ffcdcf; text-underline-offset: .17em; }
+a:visited { color: #ded1f6; }
+a:focus-visible { outline: 2px solid #ffcdcf; outline-offset: 3px; }
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .15rem 1rem;
+  align-items: baseline;
+  margin-bottom: .75rem;
+}
+
+.site-nav a { padding-block: .35rem; }
+.site-nav a[aria-current="page"] { color: #f4f3f2; font-weight: 700; }

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Software engineering roles and projects by Omid Saghatchian.">
+  <meta name="theme-color" content="#050506">
+  <title>Industry experience | Omid Saghatchian</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/particles.js" defer></script>
+  <style>
+    h1 { margin: .6em 0; font-size: clamp(1.65rem, 4.5vw, 2.25rem); line-height: 1.2; }
+    h2 { margin: 0 0 .25rem; font-size: 1.05rem; }
+    section { margin-top: 1.5rem; }
+    p { margin: 0 0 1rem; }
+    .dates { color: #c9c6c8; margin-bottom: .55rem; }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <canvas id="particle-field"></canvas>
+  </div>
+
+  <header>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">About me</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="industry.html" aria-current="page">Industry</a>
+      <a href="projects.html">Selected project</a>
+    </nav>
+    <h1>Industry experience</h1>
+  </header>
+
+  <main>
+    <section aria-labelledby="argoman">
+      <h2 id="argoman">Tech Lead at Argoman</h2>
+      <p class="dates">November 2024 to present</p>
+      <p>I led development of a performance management system. I turned stakeholder requirements into business rules, designed the database and domain model, and coordinated the work of three developers and a product designer.</p>
+      <p>I designed an evaluation workflow that let users configure each phase. For example, they could make planning a single step for the manager or add employee feedback before the manager finalized the plan. I also designed an employee worklist so each person could see their current tasks in one place.</p>
+      <p>I implemented final scoring, including how to adjust weights when assessments were missing and which sources should take precedence. I built a notification center with a registry that other applications could extend and designed it to avoid duplicate sends on retries. We used a lock to prevent concurrent requests from opening two active evaluation cycles for the same employee.</p>
+      <p>We delivered and demonstrated an MVP that met stakeholder requirements.</p>
+      <p><strong>Stack</strong> · Django (backend), Nuxt (frontend), PostgreSQL (application data), Celery (scheduled and background jobs), Redis (broker and cache), object storage (files), Docker (containers), and Kubernetes (deployment).</p>
+    </section>
+
+    <section aria-labelledby="yektanet">
+      <h2 id="yektanet">Software Engineer at Yektanet</h2>
+      <p class="dates">October 2021 to October 2022</p>
+      <p>I built an OpenRTB client that received ads from ad buying platforms and a service that estimated click-through rates for individual ads. I also contributed to video ad delivery and a service that ranked sponsored listings for product searches in real time.</p>
+    </section>
+
+    <section aria-labelledby="iran-hr">
+      <h2 id="iran-hr">Software Engineer at Iran.hr</h2>
+      <p class="dates">March to September 2021</p>
+      <p>I refactored legacy code on the employer side of the hiring platform and added unit tests. I built screening questions that let employers specify answers that would disqualify a candidate, developed an admin API, and integrated the platform with an existing CRM system.</p>
+    </section>
+
+    <section aria-labelledby="wolfe-labs">
+      <h2 id="wolfe-labs">Software Engineer at Wolfe Labs</h2>
+      <p class="dates">July 2020 to February 2021</p>
+      <p>I built REST APIs for web and mobile clients and developed order dispatch logic for a delivery product. I used MongoDB geospatial queries to find nearby drivers and assign each order using a proximity rule.</p>
+    </section>
+  </main>
+</body>
+</html>
