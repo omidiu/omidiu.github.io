@@ -8,21 +8,42 @@
   <title>Omid Saghatchian</title>
   <style>
     :root {
+      --text-width: 76ch;
+      --page-padding: 1.25rem;
       color-scheme: dark;
       background: #050506;
     }
 
+    @media (hover: hover) and (pointer: fine) {
+      :root {
+        --scrollbar-thumb: #92717b;
+        --scrollbar-track: #0d0b0e;
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        scrollbar-width: thin;
+      }
+
+      :root::-webkit-scrollbar { width: 10px; }
+      :root::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+      :root::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+        border: 2px solid var(--scrollbar-track);
+        border-radius: 1rem;
+      }
+    }
+
     body {
-      max-width: 76ch;
+      max-width: var(--text-width);
       margin: clamp(1.5rem, 4vw, 3rem) auto 3rem;
-      padding-inline: 1.25rem;
+      padding-inline: var(--page-padding);
       color: #f4f3f2;
       font: 1rem/1.45 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
     }
 
     .backdrop {
       position: fixed;
-      inset: 0;
+      inset: 0 0 auto;
+      height: 100vh;
+      height: 100lvh;
       pointer-events: none;
     }
 
@@ -32,25 +53,28 @@
       height: 100%;
     }
 
-    header, main, footer {
-      position: relative;
-      isolation: isolate;
-    }
-
-    header { margin-bottom: 1.4rem; }
-    .has-particles header { margin-bottom: clamp(8rem, 23vw, 13rem); }
-
-    header::before, main::before, footer::before {
+    .backdrop::after {
       content: "";
       position: absolute;
-      z-index: -1;
-      inset: -1rem -1.25rem;
+      inset: 0;
+      width: min(100%, calc(var(--text-width) + 2 * var(--page-padding)));
+      margin-inline: auto;
       background: linear-gradient(90deg,
-        transparent, #050506b8 1.25rem,
-        #050506b8 calc(100% - 1.25rem), transparent);
-      mask-image: linear-gradient(180deg,
-        transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
-      pointer-events: none;
+        transparent, #050506b8 var(--page-padding),
+        #050506b8 calc(100% - var(--page-padding)), transparent);
+    }
+
+    header, main, footer { position: relative; }
+
+    header { margin-bottom: .75rem; }
+
+    .portrait {
+      display: block;
+      width: clamp(8rem, 22vw, 12rem);
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: .25rem;
     }
 
     h1 {
@@ -85,6 +109,7 @@
 
   <header>
     <h1>Omid Saghatchian</h1>
+    <img class="portrait" src="portrait-dithered.png" width="1254" height="1254" alt="Portrait of Omid Saghatchian" decoding="async">
     <nav aria-label="Profiles">
       <a href="https://github.com/omidiu">GitHub</a>
       <a href="https://scholar.google.com/citations?user=f7rHfTIAAAAJ&amp;hl=en">Google Scholar</a>
@@ -145,13 +170,12 @@
       if (!context) return;
 
       const header = document.querySelector("header");
-      const main = document.querySelector("main");
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const turn = Math.PI * 2;
       let frameId = 0;
       let lastDraw = null;
       let elapsed = 0;
-      let width, height, middle, ribbonHeight, density;
+      let width, height, pixelScale, middle, ribbonHeight, density;
 
       const layers = [
         { count: 2900, color: "#dfe4ec49", radius: 1.17, spread: 1.55 },
@@ -201,16 +225,22 @@
       }
 
       function resize() {
-        width = canvas.clientWidth;
-        height = canvas.clientHeight;
-        const scale = Math.min(window.devicePixelRatio || 1, 1.6);
-        canvas.width = Math.round(width * scale);
-        canvas.height = Math.round(height * scale);
-        context.setTransform(scale, 0, 0, scale, 0, 0);
-        const headerBottom = header.getBoundingClientRect().bottom;
-        const gap = main.getBoundingClientRect().top - headerBottom;
-        middle = Math.min(height * .68, headerBottom + window.scrollY + gap * 1.5);
-        ribbonHeight = Math.min(height * .74, width * .56, gap * 2.35);
+        const nextWidth = canvas.clientWidth;
+        const nextHeight = canvas.clientHeight;
+        const nextScale = Math.min(window.devicePixelRatio || 1, 1.6);
+        if (nextWidth === width && nextHeight === height && nextScale === pixelScale) return;
+
+        width = nextWidth;
+        height = nextHeight;
+        pixelScale = nextScale;
+        canvas.width = Math.round(width * pixelScale);
+        canvas.height = Math.round(height * pixelScale);
+        context.setTransform(pixelScale, 0, 0, pixelScale, 0, 0);
+        const headerBottom = header.offsetTop + header.offsetHeight;
+        const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
+        const ribbonSpan = Math.min(13 * rootFontSize, Math.max(8 * rootFontSize, window.innerWidth * .23));
+        middle = Math.min(height * .68, headerBottom + ribbonSpan * 1.5);
+        ribbonHeight = Math.min(height * .74, width * .56, ribbonSpan * 2.35);
         density = Math.min(1, Math.max(.38, width / 1080));
         paint();
       }
@@ -234,7 +264,6 @@
       reducedMotion.addEventListener("change", updateMotion);
       document.addEventListener("visibilitychange", updateMotion);
       window.addEventListener("resize", resize);
-      document.body.classList.add("has-particles");
       resize();
       updateMotion();
     })();
